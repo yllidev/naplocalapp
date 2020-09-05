@@ -1,0 +1,2 @@
+class FulfilmentRequester < ApplicationRecord
+end

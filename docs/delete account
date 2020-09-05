@@ -1,0 +1,9 @@
+Implement Account Delete
+
+so what we I need to do for it
+1. add delete button
+2. write a method in backend for delete Account
+3  confirmation pop-up on button click 
+4. send the request from frontend to backend
+5 if request it succeed then remove authentication cookies
+6 reload the page 

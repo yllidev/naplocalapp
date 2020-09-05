@@ -1,0 +1,46 @@
+Lets Start with counter issue
+I have faced 4 issues to fixed counter replies
+
+1. when we replying on any request that time reply are saved into conversations table but request_id is not saved
+
+* we need to save request_id in conversations table
+let me explain what I have changed for in
+
+conversations_controller.rb
+* permit request_id in params
+
+send request_id from frontend with conversation post data
+request_id: this.props.request.id
+
+and it will fixed our first problem and save request_id in conversation table
+
+
+2. we are not getting replies data from replies_controller index method
+Why we are not getting replies data after creating reply
+
+because we have a some issue with code
+
+
+* Request model should be associated with Conversation model usign has_many
+    has_many :conversations
+* also Conversation model should belongs to Request model
+    belongs_to :request
+    
+    using this association we can easily find out how many replies on request
+    like that: request.conversations.count
+
+
+and finaly we are geting replies and counter is working fine
+
+3. now come to the another issue, if I have alredy replied on request but "Offer help" button is not disabled and "You have already responded to this request!" message was not showing also I can create another reply
+
+so how I have fixed this
+we have bugs in checkIfUserResponded method
+ * we are using conversation as replies but we don't have volunteer_id in conversation table
+ but we have user_id instead of volunteer_id so we need to change volunteer_id to user_id in
+ checkIfUserResponded function
+
+4. after creating reply message "You have already responded to this request!" was showing on request model before model close
+
+for that we have remove checkRepliesNumber and fetchRepliesNumber function from submitReply and call into submitMessage after popup close
+
